@@ -37,21 +37,32 @@ $data = array(
 	
     foreach($data as $x => $value)
     {
-        foreach($value as $x2 => $value2)
-        {
-            
-            if(is_array($value2))
+        $count=0;
+        foreach($value as $x2 => $value2){
+            if($x2=='city')
             {
-                echo "* ".$x2.": <br> ";
-                foreach($value2 as $x3 => $value3)
-                {
-                    echo "* "."-".$value3."<br>";
-                }
-            }
-            else{
-                echo "* ".$x2.": ".$value2."<br>";
+                $count++;
+                break;
             }
         }
-        echo "<br>"."* "."---------------------------"."<br>";
+        if($count>0){
+            foreach($value as $x3 => $value3)
+            {
+            
+                if(is_array($value3))
+                {
+                    echo "* ".$x2.": <br> ";
+                    foreach($value3 as $x4 => $value4)
+                    {
+                        echo "* "."-".$value4."<br>";
+                    }
+                }
+                else{
+
+                    echo "* ".$x3.": ".$value3."<br>";
+                }
+            }
+            echo "<br>"."* "."---------------------------"."<br>";
+        }
     }
 ?>

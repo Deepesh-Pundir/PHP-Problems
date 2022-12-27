@@ -29,6 +29,7 @@
             margin:20px;
             border:2px solid black;
             text-align:center;
+            font-size:25px;
         }
         .button input{
             width:60%;
@@ -41,23 +42,57 @@
             height:130px;
             margin:20px;
             border:2px solid black;
+            font-size:25px;
+            text-align:center;
         }
 
     </style>
 </head>
 <body>
-    <form>
+    <?php
+    if($_SERVER["REQUEST_METHOD"]=="POST"){
+
+        $first_date = date_create($_POST['start_date']);
+       // echo $first_date."<br>";
+        $end_date = date_create($_POST['end_date']);
+        //echo $end_date;
+        $diff=date_diff($first_date,$end_date);
+        $str='';
+        $res=$diff->format("%r%a");
+        $res=abs($res);
+       //echo $res;
+        if($res>=365)
+        {
+            $year=floor($res/365);
+            $str="$year"." Years ";
+            $res=$res-($year*365);
+        }
+        if($res>=30)
+        {
+             $month=floor($res/30);
+            $str.="$month"." months ";
+            $res=$res-($month*30);
+        }  
+        if($res<30)
+        {
+            $str.="$res"." days ";
+        }
+        
+    }
+    
+    ?>
+    <form method="POST">
         <div class="fdate date">
-            <input type="date" name="start_date" id="1stdate" >
+            <input type="date" name="start_date"  value="<?php echo date('d-m-Y');?>" >
         </div>
-        <div class="sdate date">
-            <input type="date" name="start_date" id="2nddate" >
+         <div class="sdate date">
+            <input type="date" name="end_date" value="<?php echo date('d-m-Y');?>" >
         </div>
         <div class="button">
             <input type="submit" value="Calculate Diffrence">
         </div>
         <div class="result">
-            <input type="text" >
+            <input type="text" value="<?php echo $str ;?>">
         </div>
     </from>
 </body>

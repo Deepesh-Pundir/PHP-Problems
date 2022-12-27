@@ -1,6 +1,8 @@
 <?php
+include_once ('SQLfunction.php');
 /* Attempt to connect to MySQL database */
-$link = mysqli_connect('localhost', 'root', '', 'problem9');
+//$link = mysqli_connect('localhost', 'root', '', 'problem9');
+$link=conn('problem9');
 // Check connection
 if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
@@ -46,10 +48,11 @@ if(isset($_POST['submit']))
         <?php
     }
     else{
-    $sql="INSERT INTO user_data(`First_Name`,`Last_Name`,`Age`,`DOB`,`Gender`,`Education`,`Address1`,`Address2`,`State`,`Country`,`skill`)
-    values('$First_Name','$Last_Name','$Age','$DOB','$Gender','$chk','$Address1','$Address2','$State','$Country','$sk')";
+    // $sql="INSERT INTO user_data(`First_Name`,`Last_Name`,`Age`,`DOB`,`Gender`,`Education`,`Address1`,`Address2`,`State`,`Country`,`skill`)
+    // values('$First_Name','$Last_Name','$Age','$DOB','$Gender','$chk','$Address1','$Address2','$State','$Country','$sk')";
     
-    if(mysqli_query($link,$sql))
+   $sql=insert_data("user_data",['First_Name','Last_Name','Age','DOB','Gender','Education','Address1','Address2','State','Country','skill'],[[$First_Name,$Last_Name,$Age,$DOB,$Gender,$chk,$Address1,$Address2,$State,$Country,$sk]]);
+    if($sql)
     {           
         ?>
         <p style="color:red; font-weight:bold; font-size:30px; text-align:center; text-decoration:underline;"> <?php echo "*Data Submited Successfully";?><p>

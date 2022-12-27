@@ -83,6 +83,7 @@
     }
     </style>
     <?php  include('config.php'); ?>
+    <?php include_once('SQLfunction.php')?>
 
 </head>
 
@@ -230,19 +231,12 @@
                 <select multiple="multiple" name="skills[]" id="skills">
                     <?php
 
-                    // Attempt select query execution
-                    $sql = "SELECT * FROM skill";
-                    if($result = mysqli_query($link, $sql)){
-                        if(mysqli_num_rows($result) > 0){
-                            while($row = mysqli_fetch_array($result)){
-                              ?> 
-                                <option value="<?php echo $row['id']; ?>"> 
-                                
-                                <?php echo $row['SKILLS']; ?></option>   <?php
-                            }
-                        }}
-
-                        ?>
+                        $result=fetch_data('problem9','skill','*');
+                            
+                        foreach ($result as $key => $value) {
+                            echo "<option value='".$value["id"]."'>".$value["SKILLS"]."</option>";
+                        }
+                            ?>
                     </select>
                     <br>
                     <span><?php echo $skillsError;?></span>
@@ -261,20 +255,12 @@
                 <label for="state">State<span>*</span></label><br>
                 <select name="state">
                     <?php
-
-                        $sql = "SELECT * FROM state";
-                        if($result = mysqli_query($link, $sql)){
-                        if(mysqli_num_rows($result) > 0){
-                            ?>
-                            
-                            <option></option><?php
-                             while($row = mysqli_fetch_array($result)){
-                        ?>
-                         <option value="<?php echo $row['st_id']; ?>"> 
                         
-                        <?php echo $row['stateName']; ?></option>   <?php
+                    $result=fetch_data('problem9','state','*');
+                    echo '<option></option>';
+                    foreach ($result as $key => $value) {
+                        echo "<option value='".$value["st_id"]."'>".$value["stateName"]."</option>";
                     }
-                    }}
                     ?>
                 </select><br>
                 <span><?php echo $stateError;?></span>
@@ -283,19 +269,11 @@
                 <label for="country">Country<span>*</span></label><br>
                 <select name="country">
                  <?php
-
-                    $sql = "SELECT * FROM country";
-                    if($result = mysqli_query($link, $sql)){
-                    if(mysqli_num_rows($result) > 0){
-                        ?>
-                            <option></option>?><?php
-                         while($row = mysqli_fetch_array($result)){
-                    ?> 
-                        <option value="<?php echo $row['c_id']; ?>"> 
-                    
-                        <?php echo $row['CountryName']; ?></option>   <?php
-                     }
-                    }}
+                    $result=fetch_data('problem9','country','*');
+                    echo '<option></option>';
+                    foreach ($result as $key => $value) {
+                        echo "<option value='".$value["c_id"]."'>".$value["CountryName"]."</option>";
+                    }
                      ?>
                 </select><br>
                 <span><?php echo $countryError;?></span>

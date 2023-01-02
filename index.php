@@ -21,6 +21,8 @@
     <a href="Problem12(Pagination).php">Problem12</a><br><br>
     <a href="Problem13.php">Problem13</a><br><br>
     <a href="Problem14.php">Problem14</a><br><br>
+    <a href="Problem15.php">Problem15</a><br><br>
+    <a href="problem16.php">Problem16</a><br><br>
 
 </body>
 </html>

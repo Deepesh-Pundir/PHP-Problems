@@ -50,15 +50,18 @@
 </head>
 <body>
     <?php
+    $str='';
     if($_SERVER["REQUEST_METHOD"]=="POST"){
 
         $first_date = date_create($_POST['start_date']);
-       // echo $first_date."<br>";
         $end_date = date_create($_POST['end_date']);
-        //echo $end_date;
         $diff=date_diff($first_date,$end_date);
         $str='';
         $res=$diff->format("%r%a");
+        if($res<0)
+        {
+            $str.="-";
+        }
         $res=abs($res);
        //echo $res;
         if($res>=365)

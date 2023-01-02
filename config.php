@@ -13,6 +13,7 @@ if($link === false){
 
 if(isset($_POST['submit']))
 {
+    
     $First_Name=$_POST['firstName'];
     $Last_Name=$_POST['lastName'];
     $Age=$_POST['age'];
@@ -52,6 +53,7 @@ if(isset($_POST['submit']))
     // values('$First_Name','$Last_Name','$Age','$DOB','$Gender','$chk','$Address1','$Address2','$State','$Country','$sk')";
     
    $sql=insert_data("user_data",['First_Name','Last_Name','Age','DOB','Gender','Education','Address1','Address2','State','Country','skill'],[[$First_Name,$Last_Name,$Age,$DOB,$Gender,$chk,$Address1,$Address2,$State,$Country,$sk]]);
+   header("LOCATION:problem16.php");
     if($sql)
     {           
         ?>

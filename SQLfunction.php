@@ -64,7 +64,6 @@
                         $count++;  
                     }  
                 }
-                echo $sql;
             }
             if($offset!='' && $limit!=''){
                 
@@ -100,7 +99,7 @@
             }
         }
             $sql.=";";
-           // echo $sql;
+            //echo $sql;
              $conn=conn($db_name);
             $res=mysqli_query($conn,$sql);
             $data=mysqli_num_fields($res);
@@ -247,15 +246,37 @@
         
         echo $sql;
     }
-    inner_join("user_id, First_Name,Last_Name,Age,DOB,Gender,Education,Address1,Address2,state.stateName As State ,country.CountryName As Country,skill","user_data",["state"=>['user_data'=>'State','state'=>'st_id'],"country"=>['user_data'=>'country','country'=>'c_id']]);
-    function update_column($table_name,$col_name,$value,$condition)
+    //inner_join("user_id, First_Name,Last_Name,Age,DOB,Gender,Education,Address1,Address2,state.stateName As State ,country.CountryName As Country,skill","user_data",["state"=>['user_data'=>'State','state'=>'st_id'],"country"=>['user_data'=>'country','country'=>'c_id']]);
+    function update_col($table_name,$col_name,$value,$condition)
     {
         $sql="UPDATE $table_name SET $col_name='$value' WHERE $condition;";
         $conn=mysqli_connect("localhost","root","","student");
         $res=mysqli_query($conn,$sql);
         echo $sql;
     }
-    //update_column("pancard","CITY","NOIDA","NAME='MAYANK'");
+    //update_col("pancard","CITY","NOIDA","NAME='MAYANK'");
+    function update_column($table_name,$col_name,$condition)
+    {
+        $sql="UPDATE `$table_name` SET ";
+        foreach($col_name AS $key =>$value)                   
+        {
+            $sql.=$key."='".$value."',";
+        }
+        $sql=rtrim($sql,',');
+        $sql.=" WHERE ".$condition.';';
+        //echo $sql;
+        $conn=conn("problem9");
+        $res=mysqli_query($conn,$sql);
+        if($res)
+        {
+            echo "Data Updated successfully";
+            return 1;
+        }
+        else{
+            echo "query is not run";
+        }
+    }
+    //update_column('student',['age'=>'30','name'=>'rahul','country'=>'russia'],"id=2");
    function delete_data($table_name,$condition)
    {
     $sql="DELETE FROM `$table_name` WHERE $condition;";
@@ -265,7 +286,21 @@
     echo $sql;
    }
    //delete_data("pancard","ID=5");
-
+   function delete_row($table_name,$col_name,$id)
+   {
+        $conn=conn("problem9");
+        $sql="DELETE FROM `$table_name` WHERE $col_name=$id;";
+        $res=mysqli_query($conn,$sql);
+        if($res)
+        {
+            echo "Data deleted successfully";
+            return 1;
+        }
+        else{
+            echo "query is not run";
+        }
+   }
+   //delete_row('pancard','10');
    function rename_col($table_name,$old_name,$new_name)
    {
         $sql="ALTER $table_name CHANGE $old_name NEW $new_name";

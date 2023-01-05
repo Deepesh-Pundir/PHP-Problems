@@ -167,7 +167,7 @@
         $countryError="*Country field is mandatory";
     }
     else{
-        $country=test_input($_POST["state"]);
+        $country=test_input($_POST["country"]);
     }
    // $submited=test_input($_POST('submited'));
 

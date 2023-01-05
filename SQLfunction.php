@@ -99,7 +99,7 @@
             }
         }
             $sql.=";";
-            //echo $sql;
+            // echo $sql;
              $conn=conn($db_name);
             $res=mysqli_query($conn,$sql);
             $data=mysqli_num_fields($res);

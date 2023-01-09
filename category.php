@@ -1,3 +1,9 @@
+<?php
+session_start();   
+if(isset($_SESSION["Name"]))
+{
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,13 +30,16 @@
             text-align:center;
         }
         .menu a{
-            border:1px solid black;
+            /* border:1px solid black;  */
             display:block;
             padding:5px;
             /* width:92%; */
             text-align:center;
             text-decoration:none;
-            color:black;
+            color:white;
+            margin-bottom:2px;
+            background-color:#2E8B57;
+            padding:8px;
         }
         h1{
             text-align:center;
@@ -65,6 +74,8 @@
         .block1 .parent select{
             height:5vh;
             width:60%;
+            font-weight:bold;
+            color:#2E8B57; 
         }
         .block1 .save{
             text-align:center;
@@ -76,7 +87,10 @@
             margin-top:40px;
             margin-bottom:40px;
             font-weight:bold;
-            font-size:16px;
+            font-size:18px;
+            color:white;
+            background-color:#2E8B57;
+            border:none;
         }
         .block2{
             border:1px solid black;
@@ -101,17 +115,24 @@
             text-align:center;
             font-size:20px;
             margin-bottom:2px; 
-            padding:10px; 
+            padding:10px;
+            background-color:#2E8B57; 
+            border:none;    
         }
         .block2 ul li a{
             text-decoration:none;
-            color:black;    
+            /* color:black;     */
             font-weight:bold;   
+            color:white; 
         }
     </style>
 </head>
 <body>
     <?php
+    // if(!defined('MYSITE'))
+    // {
+    //     header('location:sign_in.php');
+    // }
     include_once('SQLfunction.php');
     $title=$description=$parent='';
     $titleError='';
@@ -175,6 +196,9 @@
         <div class="menu">
             <a href="category.php">Category</a>
             <a href="add_post.php">Post</a>
+            <a href="show_post.php">Show Data</a>
+            <a href="sign_out.php">Log Out</a>
+
         </div>
         <div class="body">
             <form action="" method="POST">
@@ -190,7 +214,7 @@
                         <select name="parent" id="">
                             <?php
                             $row1=fetch_data("problem9","category","Title,parent_category,id");
-                            echo "<option></option>";
+                            echo "<option value=''>Parent Category</option>";
                             foreach($row1 AS $key=>$value){
                                 if($row["id"]==$value['id']){
                                      $selected ='selected';
@@ -219,3 +243,8 @@
     </div>
 </body>
 </html>
+<?php
+}
+else{
+    header("location:sign_in.php");
+} ?>

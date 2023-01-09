@@ -1,3 +1,9 @@
+<?php
+session_start();   
+if(isset($_SESSION["Name"]))
+{
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,17 +28,19 @@
         .post{
             width: 15%;
             height:60vh;
-            border:1px solid black;
+            border:2px solid #2E8B57;
             margin:10px 10px 20px 5px;
         }
         .post a{
-            border:1px solid black;
+            border:2px solid #2E8B57;
             display:block;
             padding:5px;
             /* width:92%; */
             text-align:center;
             text-decoration:none;
-            color:black;
+            color:white;
+            margin-top:2px;
+            background-color:#2E8B57;
         }
         form{
             width:100%;
@@ -66,16 +74,23 @@
             text-align:center;
             margin-left:20px;
             margin-bottom:10px;
+            background-color:#2E8B57;
+            color:white;
+            font-size:18px;
+            font-weight:bold;
+            border:none;
         }
         form .block2{
             width:60%;
             margin-top:10px;
+            color:#2E8B57;
+            font-weight:bold;
         
         }
         .background{
             width:90%;
-            border:1px solid black;
-            background-color:grey;
+            border:1px solid #2E8B57;
+            background-color:#2E8B57;
         }
         .category{
             width: 90%;
@@ -85,14 +100,13 @@
             background-color:white;  
             /* overflow-y:scroll; */
         }
-        h3{
+        h3{   
             border-bottom:1px solid black;
         }
         .category a{
             display:inline-block;  
             text-decoration:none;
             margin: 5px 8px 5px 5px;
-            
         }
         .category input{
             margin:10px 8px 5px 5px;
@@ -109,6 +123,7 @@
         include_once('SQLfunction.php');
         $title=$description=$category=$chk='';
         $titleError='';
+        $author=$_SESSION["Name"];
         if($_SERVER["REQUEST_METHOD"]=="POST"){
             if(empty($_POST["title"])){
                 $titleError="*Required";
@@ -141,7 +156,7 @@
                     echo "*Please fill the required field";
                 }
                 else{
-                    insert_data("post",['Title','Description','Category'],[[$title,$description,$chk]]);
+                    insert_data("post",['Title','Author','Description','Category'],[[$title,$author,$description,$chk]]);
                 }
         }
     ?>
@@ -150,6 +165,9 @@
         <div class="post">
             <a href="category.php">Category</a> 
             <a href="add_post.php">Post</a>
+            <a href="show_post.php">Show Data</a>
+            <a href="sign_out.php">Log Out</a>
+
         </div>
         <form action="" method="POST">
             <div class="block1">
@@ -229,3 +247,8 @@
     </div>
 </body>
 </html>
+<?php
+}
+else{
+    header("location:sign_in.php");
+} ?>

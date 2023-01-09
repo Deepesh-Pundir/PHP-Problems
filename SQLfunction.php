@@ -93,13 +93,13 @@
                 }
             if($offset!='' && $limit!=''){
                 
-                $sql.=" LIMIT $offset,$limit;";       
+                $sql.=" LIMIT $offset,$limit";       
             }
             
             }
         }
             $sql.=";";
-            // echo $sql;
+            //  echo $sql;
              $conn=conn($db_name);
             $res=mysqli_query($conn,$sql);
             $data=mysqli_num_fields($res);
@@ -141,7 +141,7 @@
                
             $sql=rtrim($sql,", ");
             $sql.=") VALUES ";
-            //echo $sql;
+            // echo $sql;
             foreach($value as $key1 => $val1) {
                 $sql.="(";
                 foreach($val1 as $key2 => $val2){
@@ -159,9 +159,6 @@
             $sql=rtrim($sql,", ");
             $sql.=";";
             
-        
-             
-            // die;
             $res=mysqli_query($conn,$sql);
 
             if($res){

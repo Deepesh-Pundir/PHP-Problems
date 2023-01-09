@@ -43,6 +43,7 @@
 <body>
 
 <?php
+      session_start();
      include_once('SQLfunction.php');
      $email=$password='';
      if($_SERVER["REQUEST_METHOD"]=="POST"){
@@ -50,22 +51,31 @@
         $password=$_POST['password'];
      }
      $result='';
+     $error=false;
      if(isset($_POST['sign_in']))
      {
-        $result=fetch_data('problem9','post_data','email,PSWD');
+        $result=fetch_data('problem9','post_data','email,PSWD,Name');
      //print_r($result);
+     
      foreach($result As $key=>$value)
      {    
             if($email==$value['email'] && $password==$value['PSWD'])
             {
                 echo $value['email']."<br>".$value['PSWD'];
+                $_SESSION['login']=true;
+                $_SESSION['Name']=$value['Name'];
+                echo $_SESSION['Name']; 
                 header("LOCATION:category.php");
                 break;      
             }
             else{
-                echo "Please Enter valid Email And Password";
-                break;  
+                
+                  $error=true;
             }
+     }
+     if($error)
+     {
+        echo "Please Enter valid Email And Password";
      }
     }
 ?>
